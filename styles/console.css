@@ -1,0 +1,743 @@
+/**
+ * Shared console styles
+ * Move console-related CSS from App.css here
+ */
+
+
+/* ===== Console Wrapper ===== */
+.console-wrapper {
+  display: flex;
+  flex-direction: column;
+  --dock-padding: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.console-wrapper.overlay-side,
+.console-wrapper.overlay-bottom,
+.console-wrapper.overlay-fullscreen,
+.console-wrapper.overlay-minimized {
+  position: fixed;
+  z-index: 1000;
+}
+
+.console-wrapper.overlay-side {
+  top: var(--dock-padding);
+  right: var(--dock-padding);
+  width: 500px;
+  height: calc(100vh - var(--dock-padding) * 2);
+  max-width: calc(100vw - 32px);
+  min-width: 500px;
+}
+
+.console-wrapper.overlay-bottom {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: var(--dock-padding);
+  width: calc(100% - var(--dock-padding) * 2);
+  height: 50vh;
+}
+
+.console-wrapper.overlay-fullscreen {
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100vw - 48px);
+  height: calc(100vh - 48px);
+}
+
+.console-wrapper.overlay-minimized {
+  bottom: 24px;
+  right: 24px;
+  max-width: 500px;
+  height: auto;
+}
+
+.console-wrapper.inline {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.console-wrapper.inline .console {
+  border-radius: 0;
+}
+
+/* ===== Console ===== */
+.console {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  background: var(--Neutral-5);
+  border: 1px solid var(--Neutral-30);
+  border-radius: 24px;
+  overflow: hidden;
+  font-family: var(--font-family);
+  font-size: 13px;
+  color: var(--Neutral-90);
+}
+
+/* ===== Overlay Controls ===== */
+.console-wrapper .header-hover-area {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 0px;
+  flex-shrink: 0;
+}
+
+.console-wrapper .overlay-controls {
+  display: flex;
+  gap: 4px;
+  opacity: 1;
+  pointer-events: auto;
+  background: var(--Neutral-20);
+  border-radius: 20px;
+  padding: 4px;
+}
+
+.console-wrapper .overlay-controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--Neutral-20);
+  color: var(--Neutral-60);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.console-wrapper .overlay-controls button:hover {
+  background: transparent;
+  border: 1px solid var(--Neutral-20);
+}
+
+.console-wrapper .overlay-controls button.active {
+  background: var(--Blue-800);
+  color: var(--Blue-500);
+}
+
+.console-wrapper .overlay-controls button .material-symbols-outlined {
+  font-size: 22px;
+}
+
+/* ===== Header ===== */
+.console .console-header {
+  display: flex;
+  align-items: center;
+  padding: 20px 20px 20px 25px;
+  gap: 12px;
+  background: var(--Neutral-5);
+  border-bottom: 1px solid var(--Neutral-20);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.console .agent-name {
+  margin: 0;
+  color: var(--Neutral-90);
+  font-family: "Google Sans", sans-serif;
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 28px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.console .header-spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+.console .status-indicator-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 14px;
+  background: var(--Neutral-5);
+  border: 1px solid var(--Neutral-20);
+}
+
+.console .connect-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  background: var(--Blue-500);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* Pulse animation for disconnected state */
+@keyframes connect-button-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.console .connect-button:not(.connected)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -4px;
+  left: -2px;
+  right: -2px;
+  bottom: -4px;
+  background: var(--Blue-500);
+  border-radius: 24px;
+  animation: connect-button-pulse 2s ease-out infinite;
+}
+
+.console .connect-button:hover {
+  background: transparent;
+  border: 1px solid var(--Neutral-20);
+  color: var(--Neutral-60);
+}
+
+.console .connect-button:hover::before {
+  display: none;
+}
+
+.console .connect-button.connected {
+  background: var(--Blue-800);
+  color: var(--Blue-500);
+}
+
+.console .connect-button.connected:hover {
+  border: 1px solid var(--Blue-500);
+}
+
+/* ===== Logger Controls ===== */
+.console .logger-controls {
+  display: flex;
+  gap: 8px;
+  padding: 12px 25px;
+  background: var(--Neutral-5);
+  flex-shrink: 0;
+}
+
+.console .logger-controls .react-select {
+  min-width: 0;
+}
+
+/* ===== Logger Section ===== */
+.console .logger-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.console .logger-section.disabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--Neutral-5);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ===== Logger Container ===== */
+.console .logger-container {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  padding: 8px 0;
+  width: 100%;
+}
+
+.console .logger-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.console .logger-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.console .logger-container::-webkit-scrollbar-thumb {
+  background: var(--Neutral-30);
+  border-radius: 4px;
+}
+
+.console .logger-container::-webkit-scrollbar-thumb:hover {
+  background: var(--Neutral-40);
+}
+
+/* ===== Input Container ===== */
+.console .input-container {
+  display: flex;
+  flex-direction: column;
+  margin: 12px;
+  padding: 16px 16px;
+  gap: 12px;
+  background: var(--Neutral-15);
+  border: 1px solid var(--Neutral-30);
+  border-radius: 16px;
+  flex-shrink: 0;
+}
+
+.console .input-container.disabled .message-input {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.console .input-container.disabled .message-input::placeholder {
+  color: white;
+}
+
+.console .message-input {
+  width: 100%;
+  min-height: 22px;
+  max-height: 100px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--Neutral-90);
+  font-family: inherit;
+  font-size: 14px;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+  field-sizing: content;
+  overflow-y: hidden;
+}
+
+.console .message-input:focus {
+  outline: none;
+}
+
+.console .message-input::placeholder {
+  color: var(--Neutral-50);
+}
+
+.console .input-settings {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.console .model-settings {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+}
+
+.console .model-settings .react-select {
+  flex: 1;
+  min-width: 0;
+}
+
+.console .input-spacer {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== Action Buttons ===== */
+.console .action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  background: var(--Neutral-20);
+  color: var(--Neutral-60);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.console .action-button:focus {
+  outline: none;
+}
+
+.console .action-button:hover {
+  background: transparent;
+  border: 1px solid var(--Neutral-20);
+}
+
+.console .action-button.active {
+  background: var(--Blue-800);
+  color: var(--Blue-500);
+}
+
+.console .action-button.active:hover {
+  border: 1px solid var(--Blue-500);
+}
+
+.console .action-button.disabled,
+.console .action-button:disabled {
+  background: transparent;
+  border: 1px solid var(--Neutral-30);
+  color: var(--Neutral-30);
+  cursor: not-allowed;
+}
+
+.console .action-button .material-symbols-outlined {
+  font-size: 20px;
+}
+
+.console .send-button.ready {
+  background: var(--Blue-500);
+  color: white;
+  border-color: transparent;
+}
+
+.console .send-button.ready:hover {
+  background: var(--Blue-400);
+}
+
+/* ===== Bottom Console Override ===== */
+.console-wrapper.overlay-bottom .console-header {
+  padding: 15px 20px;
+}
+
+/* ===== Minimized Console Override ===== */
+.console-wrapper.overlay-minimized .logger-container {
+  display: none;
+}
+
+.console-wrapper.overlay-minimized .logger-controls {
+  display: none;
+}
+
+.console-wrapper.overlay-minimized .console-header {
+  padding: 10px 14px;
+}
+
+.console .input-container.minimized {
+  flex-direction: row;
+  padding: 10px 12px;
+  margin: 0 12px 12px 12px;
+  gap: 8px;
+}
+
+.console .input-container.minimized .input-settings {
+  flex-shrink: 0;
+}
+
+/* ===== React Select Dropdowns ===== */
+.react-select {
+  color: var(--Neutral-90);
+  height: 30px;
+}
+
+.react-select .react-select__control {
+  outline: none;
+  background: var(--Neutral-15);
+  color: var(--Neutral-90);
+  min-height: 33px;
+  max-height: 33px;
+  border: 0;
+}
+
+.react-select .react-select__indicator-separator {
+  display: none;
+}
+
+.react-select .react-select__single-value {
+  color: var(--Neutral-90);
+}
+
+.react-select .react-select__menu {
+  background: var(--Neutral-20);
+  color: var(--Neutral-90);
+}
+
+.react-select .react-select__option--is-focused {
+  background: var(--Neutral-30);
+}
+
+.react-select .react-select__option--is-selected {
+  background: var(--Neutral-20);
+}
+
+.model-settings .react-select .react-select__dropdown-indicator {
+  transform: rotate(180deg);
+}
+
+.react-select--is-disabled .react-select__control {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.react-select--is-disabled .react-select__single-value {
+  color: var(--Neutral-60);
+}
+
+/* ===== Logger ===== */
+.logger {
+  color: var(--Neutral-50);
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.logger .logger-list {
+  padding: 0 0px 0 25px;
+  overflow-x: hidden;
+  width: calc(100% - 45px);
+  margin-bottom: 0;
+}
+
+.logger .user h4 {
+  color: var(--Green-500);
+}
+
+.logger .model h4 {
+  color: var(--Blue-500);
+}
+
+.logger .rich-log {
+  display: block;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.logger .rich-log pre {
+  overflow-x: auto;
+}
+
+.logger .rich-log h4 {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 8px 0;
+  margin: 0;
+}
+
+.logger .rich-log h5 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.logger .rich-log .part>p {
+  margin: 4px;
+}
+
+.logger .rich-log .role-user {
+  color: var(--Green-500);
+}
+
+.logger .rich-log .role-model {
+  color: var(--Blue-500);
+}
+
+.logger .rich-log .part {
+  background: var(--Neutral-15);
+  padding: 14px;
+  margin: 6px 0;
+  color: var(--Neutral-90);
+  border-radius: 8px;
+}
+
+.logger .rich-log .part>* {
+  max-height: 200px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Collapsible Part Toggle */
+.logger .collapsible-part .collapsible-header {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--Neutral-70);
+}
+
+.logger .collapsible-part .collapsible-header .header-icon {
+  font-size: 18px;
+  margin-right: 6px;
+}
+
+.logger .collapsible-part .collapsible-header .toggle-icon {
+  transition: transform 0.2s ease;
+  color: var(--Neutral-60);
+  transform: rotate(0deg);
+}
+
+.logger .collapsible-part.expanded .collapsible-header .toggle-icon {
+  transform: rotate(-180deg);
+}
+
+.logger .collapsible-part .collapsible-content {
+  display: none;
+  overflow-y: auto;
+  scrollbar-color: var(--Neutral-30) var(--Neutral-15);
+}
+
+.logger .collapsible-part.expanded .collapsible-content {
+  display: block;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--Neutral-20);
+}
+
+/* Disable container scrolling when pre handles its own scrolling */
+.logger .collapsible-part .collapsible-content:has(pre) {
+  overflow-y: visible;
+}
+
+.logger .collapsible-part .collapsible-content pre {
+  max-height: 180px;
+  overflow: auto;
+}
+
+.logger .plain-log>* {
+  padding-right: 4px;
+}
+
+.logger .inline-code:not(:last-child) {
+  font-style: italic;
+}
+
+.logger .inline-code:not(:last-child)::after {
+  content: ", ";
+}
+
+.logger li {
+  display: block;
+  padding: 10px 0;
+  color: var(--Neutral-50, #707577);
+  font-family: "Space Mono";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.logger li .timestamp {
+  width: 70px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  color: var(--Neutral-50);
+}
+
+.logger li .source {
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+.logger li.source-server,
+.logger li.receive,
+.logger li.tool-call {
+  color: var(--Blue-500);
+}
+
+.logger li.source-client,
+.logger li.send:not(.source-server) {
+  color: var(--Green-500);
+}
+
+.logger li .count {
+  background-color: var(--Neutral-5);
+  font-size: x-small;
+  padding: 0.3em 0.5em;
+  line-height: 1em;
+  vertical-align: middle;
+  border-radius: 8px;
+  color: var(--Blue-500);
+}
+
+.logger li .message {
+  flex-grow: 1;
+  color: var(--Neutral-50);
+}
+
+/* ===== Mobile Responsive Styles ===== */
+@media (max-width: 600px) {
+  .console-wrapper {
+    --dock-padding: 8px;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .console-wrapper.overlay-side,
+  .console-wrapper.overlay-fullscreen {
+    top: var(--dock-padding);
+    left: var(--dock-padding);
+    right: var(--dock-padding);
+    width: calc(100vw - var(--dock-padding) * 2);
+    max-width: calc(100vw - var(--dock-padding) * 2);
+    min-width: unset;
+    height: calc(100vh - var(--dock-padding) * 2);
+    transform: none;
+  }
+
+  .console-wrapper.overlay-minimized {
+    right: 8px;
+    bottom: 8px;
+    max-width: calc(100vw - 16px);
+  }
+
+  .console {
+    border-radius: 16px;
+  }
+
+  .console .console-header {
+    padding: 12px 12px 12px 16px;
+    gap: 8px;
+  }
+
+  .console .agent-name {
+    font-size: 18px;
+  }
+
+  .console .logger-controls {
+    padding: 8px 12px;
+  }
+
+  .logger .logger-list {
+    padding: 0 0 0 12px;
+    width: calc(100% - 24px);
+  }
+
+  .console .input-container {
+    margin: 8px;
+    padding: 12px;
+    gap: 8px;
+  }
+
+  /* Hide side panel dock button on mobile */
+  .side-panel-button,
+  .console .model-settings {
+    display: none;
+  }
+}
+

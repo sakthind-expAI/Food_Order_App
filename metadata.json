@@ -1,0 +1,8 @@
+{
+  "description": "Gemini 3 Flash controls 100 tools in a simulated kitchen.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ],
+  "name": "Function Call Kitchen"
+}

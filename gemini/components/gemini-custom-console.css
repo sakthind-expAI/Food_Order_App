@@ -1,0 +1,121 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * GeminiConsole-specific styles.
+ * Shared styles are in ../../shared/app.css
+ */
+
+/* Hide the connect button */
+.gemini-console .connect-button {
+  display: none;
+}
+
+/* Core-specific model settings width */
+.gemini-console .model-settings {
+  min-width: 375px;
+}
+
+/* Core-specific minimized input adjustments */
+.gemini-console .input-container.minimized .message-input {
+  flex: 1;
+  min-height: 20px;
+  max-height: 20px;
+}
+
+/* ===== Function call approval - Gemini only for now ===== */
+.function-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.function-buttons span {
+  white-space: nowrap;
+  font-weight: 500;
+  color: var(--Neutral-90);
+}
+
+.function-buttons .button-group {
+  display: flex;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.function-buttons button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.function-buttons button .material-symbols-outlined {
+  font-size: 18px;
+  color: inherit;
+}
+
+.function-buttons button:hover:not(:disabled) {
+  background-color: var(--Blue-800);
+  border-color: var(--Blue-500);
+  color: var(--Blue-500);
+}
+
+.function-buttons button.run-function-button {
+  background-color: var(--Blue-500);
+  color: white;
+}
+
+.function-buttons button.run-function-button.clicked {
+  background-color: var(--Blue-500);
+}
+
+.function-buttons button.reject-function-button {
+  background-color: var(--Neutral-20);
+  color: var(--Neutral-90);
+}
+
+.function-buttons button.reject-function-button.clicked {
+  background-color: var(--Neutral-30);
+}
+
+.function-buttons button:disabled {
+  background-color: var(--Neutral-20);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.function-buttons button:disabled.clicked {
+  background-color: var(--Blue-500);
+}
+
+.function-status-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--Neutral-70);
+}
+
+.function-status-text .material-symbols-outlined {
+  font-size: 18px;
+}

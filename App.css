@@ -1,0 +1,613 @@
+
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:root {
+  --Neutral-5: #1a1510;
+  --Neutral-10: #2a221a;
+  --Neutral-15: #3a2f24;
+  --Neutral-20: #4a3c2e;
+  --Neutral-30: #6a5642;
+  --Neutral-40: #8a7056;
+  --Neutral-50: #aa8a6a;
+  --Neutral-60: #caaa8a;
+  --Neutral-70: #dac0a0;
+  --Neutral-80: #ead6c0;
+  --Neutral-90: #f5ece0;
+  --Blue-400: #ffd700; /* Gold */
+  --Blue-500: #fbc02d; /* Turmeric Gold */
+  --Blue-800: #5d4037; /* Brown */
+  --Green-500: #4caf50; /* Banana Leaf Green */
+  --Red-400: #ef5350;
+  --Red-500: #d32f2f; /* Chili Red */
+  --Red-800: #7f0000;
+  scrollbar-color: var(--Neutral-30) var(--Neutral-5);
+  scrollbar-width: thin;
+  --font-family: 'Space Mono', monospace;
+}
+
+body {
+  font-family: var(--font-family);
+  background: #fdfdfd;
+  margin: 0;
+  padding: 0;
+}
+
+.material-symbols-outlined.filled {
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+/* ============================================================================
+   Chennai Kitchen App Styles
+   ============================================================================ */
+
+.app-container {
+  min-height: 100vh;
+  background: #fffbf2;
+  padding-top: 20px;
+  padding-bottom: 60px;
+  position: relative;
+}
+
+/* Saree border pattern down the sides of the page */
+.app-container::before,
+.app-container::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 30px;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.app-container::before {
+  left: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    #d32f2f 0px, #d32f2f 40px,
+    #fbc02d 40px, #fbc02d 45px,
+    #d32f2f 45px, #d32f2f 85px,
+    #fbc02d 85px, #fbc02d 100px
+  );
+  border-right: 2px solid #5d4037;
+}
+
+.app-container::after {
+  right: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    #d32f2f 0px, #d32f2f 40px,
+    #fbc02d 40px, #fbc02d 45px,
+    #d32f2f 45px, #d32f2f 85px,
+    #fbc02d 85px, #fbc02d 100px
+  );
+  border-left: 2px solid #5d4037;
+}
+
+@media (max-width: 1000px) {
+  .app-container::before,
+  .app-container::after {
+    display: none;
+  }
+}
+
+.kitchen-app {
+  max-width: 950px;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  line-height: 1.4;
+}
+
+.kitchen-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #7f0000;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.kitchen-subtitle {
+  font-size: 15px;
+  color: #5d4037;
+  margin: 8px 0 0 0;
+}
+
+/* Challenge Banner */
+.challenge-banner {
+  background: #e8f5e9; /* Light green */
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.challenge-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1b5e20;
+  margin: 0 0 8px 0;
+}
+
+.challenge-subtitle {
+  font-size: 14px;
+  color: #2e7d32;
+  margin: 0;
+}
+
+.kitchen-section {
+  background: white;
+  border: 1px solid #e0d5c5;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #5d4037;
+  margin: 0;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: #8d6e63;
+  margin: 4px 0 0 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.toggle-mode-button {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.toggle-mode-button.active {
+  background: #5d4037;
+  color: white;
+}
+
+.batch-cook-button {
+  background: #d32f2f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.clear-summary-button {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.clear-summary-button:hover {
+  background: #ffebee;
+  border-color: #ef5350;
+  color: #d32f2f;
+}
+
+.clear-summary-button .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.ingredients-tools-row {
+  display: flex;
+  gap: 24px;
+}
+
+@media (max-width: 700px) {
+  .ingredients-tools-row {
+    flex-direction: column;
+  }
+}
+
+.ingredients-tools-row .kitchen-section {
+  flex: 1;
+}
+
+.ingredients-grid, .actions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow-y: auto;
+  flex: 1;
+  max-height: 350px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 8px;
+  background: #fafafa;
+}
+
+.ingredient-tile, .action-tile {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.ingredient-tile:hover:not(:disabled), .action-tile:hover:not(:disabled) {
+  border-color: #fbc02d;
+  background: #fffde7;
+}
+
+.ingredient-tile.selected {
+  border-color: #d32f2f;
+  background: #d32f2f;
+  color: white;
+}
+
+.ingredient-tile.selected .name {
+  color: white;
+}
+
+.ingredient-tile.active, .action-tile.active {
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+.ingredient-tile .name, .action-tile .name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3e2723;
+}
+
+.ingredient-tile .emoji, .action-tile .emoji {
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* Timeline */
+.timeline-container {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 12px 0;
+  min-height: 100px;
+}
+
+.timeline-item {
+  background: white;
+  border: 1px solid #eee;
+  padding: 16px;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Order Cards */
+.orders-grid {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+
+.order-card {
+  background: #fff;
+  border: 2px solid #eee;
+  border-radius: 12px;
+  padding: 16px;
+  min-width: 160px;
+  text-align: center;
+  transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.order-card.selected {
+  border-color: #d32f2f;
+  background: #fff8f8;
+}
+
+.selection-checkbox {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 18px;
+}
+
+.order-card:hover {
+  transform: translateY(-2px);
+}
+
+.order-card.in-progress {
+  border-color: #fbc02d;
+  background: #fffde7;
+}
+
+.order-card.completed {
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+.order-emoji {
+  font-size: 40px;
+  margin-bottom: 8px;
+}
+
+.order-name {
+  font-weight: 700;
+  color: #3e2723;
+}
+
+.order-card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.order-button {
+  background: #5d4037;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.order-button:hover:not(:disabled) {
+  background: #3e2723;
+}
+
+.order-button.ai-button {
+  background: #d32f2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.order-button.ai-button:hover:not(:disabled) {
+  background: #b71c1c;
+}
+
+.order-button.ai-button .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.order-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Order Summary Section */
+.summary-list {
+  margin-top: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.summary-header-row {
+  display: flex;
+  background: #f9f9f9;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  font-size: 13px;
+}
+
+.summary-row {
+  display: flex;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-cell {
+  padding: 12px;
+}
+
+.id-cell { width: 100px; color: #888; }
+.dish-cell { width: 250px; font-weight: 600; }
+.detail-cell { flex: 1; }
+
+.served-label { color: #2e7d32; }
+.failed-label { color: #c62828; font-style: italic; }
+
+/* Floating Assistant Button */
+.floating-assistant-button {
+  position: fixed;
+  bottom: 40px;
+  right: 60px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s ease;
+}
+
+.floating-assistant-button:hover {
+  transform: scale(1.1);
+  background: #b71c1c;
+}
+
+.floating-assistant-button .material-symbols-outlined {
+  font-size: 32px;
+}
+
+/* Modal Styling */
+.custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.custom-modal-card {
+  background: white;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  position: relative;
+  overflow: hidden;
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-decorative-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    to right,
+    #d32f2f 0px, #d32f2f 40px,
+    #fbc02d 40px, #fbc02d 45px,
+    #d32f2f 45px, #d32f2f 85px,
+    #fbc02d 85px, #fbc02d 100px
+  );
+}
+
+.custom-modal-card h3 {
+  color: #7f0000;
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.custom-modal-card p {
+  color: #5d4037;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.modal-button.primary {
+  background: #d32f2f;
+  color: white;
+}
+
+.modal-button.primary:hover {
+  background: #b71c1c;
+}
+
+.modal-button.secondary {
+  background: #f5f5f5;
+  color: #5d4037;
+  border-color: #ddd;
+}
+
+.modal-button.secondary:hover {
+  background: #eee;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Agents */
+.agent-card {
+  border: 1px solid #e0d5c5;
+  background: #fffcf8;
+}
+
+.agent-name {
+  color: #5d4037;
+}
+
+.agent-cook-button {
+  background: #4caf50;
+  color: white;
+  border-radius: 24px;
+}
+
+.agent-cook-button:hover:not(:disabled) {
+  background: #388e3c;
+}
+
+.attribution-footer {
+  text-align: center;
+  color: #8d6e63;
+  padding: 40px;
+}
